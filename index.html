@@ -4,24 +4,128 @@
     <meta charset="UTF-8">
     <title>Audio Demo Page (Anonymous Submission)</title>
     <style>
-        body { font-family: sans-serif; margin: 40px; line-height: 1.6; color: #333; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
-        th { background-color: #f4f4f4; }
-        audio { width: 200px; }
-        .container { max-width: 900px; margin: auto; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            margin: 40px; 
+            line-height: 1.6; 
+            color: #333; 
+            background-color: #fafafa;
+        }
+        .container { 
+            max-width: 960px; 
+            margin: auto; 
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* 表格样式 */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 30px; }
+        th, td { border: 1px solid #e0e0e0; padding: 14px 10px; text-align: center; }
+        th { background-color: #f8f9fa; color: #444; font-weight: 600; }
+        tr:nth-child(even) { background-color: #fcfcfc; }
+        audio { width: 100%; max-width: 220px; }
+        
+        /* 语谱图区域样式 */
+        .spectrogram-section {
+            margin-top: 50px;
+            border-top: 2px solid #eee;
+            padding-top: 30px;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        .section-desc {
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .spectrogram-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px; 
+            margin-top: 20px;
+        }
+
+        .sample-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sample-header {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3498db;
+            width: 100%;
+            text-align: center;
+        }
+
+        .image-group {
+            width: 100%;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .spec-label {
+            display: block;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            background: #f0f4f8;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .spec-image {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: #fff;
+        }
+
+        .spec-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.12);
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            body { margin: 10px; }
+            .container { padding: 20px; }
+            .spectrogram-grid {
+                flex-direction: column;
+                gap: 40px;
+            }
+            th, td { padding: 10px 5px; font-size: 0.9em; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Paper Title: [Multiplexing Neural Audio Watermarks]</h1>
-        <p><strong>Abstract:</strong> Supplementary audio samples for the paper titled 'Multiplexing Neural Audio Watermarks'.</p>
+        <h1 style="text-align: center; color: #2c3e50;">Paper Title: [Multiplexing Neural Audio Watermarks]</h1>
+        <p style="text-align: center; color: #555;"><strong>Abstract:</strong> Supplementary audio samples and spectrogram visualizations for the paper titled 'Multiplexing Neural Audio Watermarks'.</p>
 
-        <h3>Audio Quality Comparison</h3>
+        <!-- 音频对比表格 -->
+        <h3 style="border-left: 4px solid #3498db; padding-left: 10px;">Audio Quality Comparison</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Condition / Sample ID</th>
+                    <th style="width: 30%;">Condition / Sample ID</th>
                     <th>Sample 1</th>
                     <th>Sample 2</th>
                 </tr>
@@ -29,21 +133,70 @@
             <tbody>
                 <tr>
                     <td><strong>Original audio</strong></td>
-                    <td><audio controls><source src="audio/baseline_01.wav" type="audio/wav"></audio></td>
-                    <td><audio controls><source src="audio/baseline_02.wav" type="audio/wav"></audio></td>
+                    <td><audio controls><source src="audio/original1.wav" type="audio/wav"></audio></td>
+                    <td><audio controls><source src="audio/original2.wav" type="audio/wav"></audio></td>
                 </tr>
                 <tr>
                     <td><strong>PATFM watermarked audio</strong></td>
-                    <td><audio controls><source src="audio/proposed_01.wav" type="audio/wav"></audio></td>
-                    <td><audio controls><source src="audio/proposed_02.wav" type="audio/wav"></audio></td>
+                    <td><audio controls><source src="audio/patfm_watermarked_001.wav" type="audio/wav"></audio></td>
+                    <td><audio controls><source src="audio/patfm_watermarked_002.wav" type="audio/wav"></audio></td>
                 </tr>
                 <tr>
                     <td><strong>MaskNet watermarked audio</strong></td>
-                    <td><audio controls><source src="audio/proposed_01.wav" type="audio/wav"></audio></td>
-                    <td><audio controls><source src="audio/proposed_02.wav" type="audio/wav"></audio></td>
+                    <td><audio controls><source src="deepfusion_watermarked_001.wav" type="audio/wav"></audio></td>
+                    <td><audio controls><source src="deepfusion_watermarked_002.wav" type="audio/wav"></audio></td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- 语谱图可视化部分 -->
+        <div class="spectrogram-section">
+            <h2 class="section-title">Spectrogram Visualization</h2>
+            <p class="section-desc">Comparison of watermarking effects on Sample 01 and Sample 02.<br>(Left: MaskNet/DeepFusion, Right: PATFM)</p>
+            
+            <div class="spectrogram-grid">
+                
+                <!-- Sample 01 列 -->
+                <div class="sample-column">
+                    <div class="sample-header">Sample 01</div>
+
+                    <!-- PATFM 效果图 -->
+                    <div class="image-group">
+                        <span class="spec-label" style="background-color: #e8f4fd; color: #0056b3;">PATFM Watermarking</span>
+                        <img src="images/patfmwatermark_spectrogram_001.pdf" alt="PATFM Spectrogram Sample 01" class="spec-image">
+                    </div>
+                    
+                    <!-- MaskNet 效果图 -->
+                    <div class="image-group">
+                        <span class="spec-label">MaskNet Watermarking</span>
+                        <img src="images/mnpatfmwatermark_spectrogram_001.pdf" alt="MaskNet Spectrogram Sample 01" class="spec-image">
+                    </div>
+                    
+                    
+                </div>
+
+                <!-- Sample 02 列 -->
+                <div class="sample-column">
+                    <div class="sample-header">Sample 02</div>
+
+                    <!-- PATFM 效果图 -->
+                    <div class="image-group">
+                        <span class="spec-label" style="background-color: #e8f4fd; color: #0056b3;">PATFM Watermarking</span>
+                        <img src="images/patfmwatermark_spectrogram_002.pdf" alt="PATFM Spectrogram Sample 02" class="spec-image">
+                    </div>
+                    
+                    <!-- MaskNet 效果图 -->
+                    <div class="image-group">
+                        <span class="spec-label">MaskNet Watermarking</span>
+                        <img src="images/mnpatfmwatermark_spectrogram_002.pdf" alt="MaskNet Spectrogram Sample 02" class="spec-image">
+                    </div>
+                    
+                    
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
